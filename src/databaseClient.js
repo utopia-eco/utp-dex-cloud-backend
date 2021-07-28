@@ -11,9 +11,9 @@ const { createPool } = require('mysql');
 // });
 
 const pool = mysql.createPool({
-  user: root,
-  password: gpEp63bvAOd5oA4y,
-  database: utp_dex,
+  user: "root",
+  password: "gpEp63bvAOd5oA4y",
+  database: "utp_dex",
   socketPath: "/cloudsql/utopia-315014:us-west1:utp-dex-db",
 });
 
