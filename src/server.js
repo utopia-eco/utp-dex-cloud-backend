@@ -34,7 +34,6 @@ app.route('/contractAddress/:contractAddress')
   .get(function(req, res, next) {
     const query = "SELECT * FROM limitOrders WHERE contractAddress = ?"
     pool.query(query, [ req.params.contractAddress ], (error, results) => {
-      console.log(query);
       if (error) throw error;
       if (!results[0]) {
         res.json({ status: "Not Found"});
