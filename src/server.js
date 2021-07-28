@@ -5,7 +5,7 @@ const app = express()
 const bodyParser = require('body-parser')
 const connection = require('./databaseClient');
 const pool = require('./databaseClient');
-const port = 3000
+const port = process.env.PORT
 
 app.get('/', (req, res) => {
   res.send('Utopia Dex')
@@ -49,6 +49,6 @@ app.route('/contractAddress/:contractAddress')
 app.get('/status', (req, res) => res.send('Working!'));
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
+  console.log(`Listening at http://localhost:${port}`)
   // Child thread which polls PKS stuff
 })
