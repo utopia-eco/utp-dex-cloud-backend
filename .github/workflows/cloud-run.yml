@@ -34,6 +34,7 @@ jobs:
       run: |-
         gcloud services enable containerregistry.googleapis.com
         gcloud services enable run.googleapis.com
+        gcloud services enable sqladmin.googleapis.com
         gcloud --quiet auth configure-docker
     - name: Build and tag image
       run: |-
