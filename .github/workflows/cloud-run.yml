@@ -36,16 +36,10 @@ jobs:
         gcloud services enable run.googleapis.com
         gcloud services enable sqladmin.googleapis.com
         gcloud --quiet auth configure-docker
-    - name: Build and tag image
-      run: |-
-        docker build . --tag "gcr.io/$CLOUD_RUN_PROJECT_ID/$REPO_NAME:$GITHUB_SHA"
-    - name: Push image to GCR
-      run: |-
-        docker push gcr.io/$CLOUD_RUN_PROJECT_ID/$REPO_NAME:$GITHUB_SHA
     - name: Deploy
       run: |-
         gcloud components install beta --quiet
-        gcloud beta run deploy $REPO_NAME --image gcr.io/$CLOUD_RUN_PROJECT_ID/$REPO_NAME:$GITHUB_SHA \
+        gcloud beta app deploy $REPO_NAME \
           --project $CLOUD_RUN_PROJECT_ID \
           --platform managed \
           --region $CLOUD_RUN_REGION \
