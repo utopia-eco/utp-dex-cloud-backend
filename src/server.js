@@ -45,7 +45,7 @@ app.route('/contractAddress/:contractAddress')
 
 
 
-app.get('/status', (req, res) => res.send(process.env.DB_USER));
+app.get('/status', (req, res) => res.send("Working"));
 
 app.listen(port, () => {
   console.log(`Listening at http://localhost:${port}`)
