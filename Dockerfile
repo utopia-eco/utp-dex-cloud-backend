@@ -1,4 +1,4 @@
-FROM node:latest
+FROM launcher.gcr.io/google/nodejs
 
 WORKDIR /app
 
