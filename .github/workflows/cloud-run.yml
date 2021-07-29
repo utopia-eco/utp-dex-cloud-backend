@@ -41,11 +41,4 @@ jobs:
         gcloud components install beta --quiet
         gcloud beta app deploy $REPO_NAME \
           --project $CLOUD_RUN_PROJECT_ID \
-          --platform managed \
-          --region $CLOUD_RUN_REGION \
-          --allow-unauthenticated \
           --quiet \
-          --update-env-vars DB_DATABASE=$DB_DATABASE \
-          --update-env-vars DB_USER=$DB_USER \
-          --update-env-vars DB_PASS=$DB_PASS \
-          --update-env-vars INSTANCE_CONNECTION_NAME=$INSTANCE_CONNECTION_NAME
