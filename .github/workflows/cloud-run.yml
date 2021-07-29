@@ -39,6 +39,6 @@ jobs:
     - name: Deploy
       run: |-
         gcloud components install beta --quiet
-        gcloud beta app deploy $REPO_NAME \
+        gcloud beta app deploy \
           --project $CLOUD_RUN_PROJECT_ID \
           --quiet \
