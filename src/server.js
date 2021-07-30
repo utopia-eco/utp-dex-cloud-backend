@@ -11,7 +11,36 @@ app.get('/', (req, res) => {
   res.send('Utopia Dex')
 })
 
-app.post('/setOrder', async (req, res) => {
+// Returns associated limit orders for orderer address
+app.route('/getOrdererOrders/:ordererAddress')
+  .get(function(req, res, next) {
+    const query = "SELECT * FROM limitOrders WHERE contractAddress = ?"
+    pool.query(query, [ req.params.ordererAddress ], (error, results) => {
+      if (error) throw error;
+      if (!results[0]) {
+        res.json({ status: "Not Found"});
+      } else {
+        res.json(results[0]);
+      }
+    })
+  });
+
+// Retrieves limit order for given order number
+app.route('/getOrdererOrders/:orderNumber')
+  .get(function(req, res, next) {
+    const query = "SELECT * FROM limitOrders WHERE orderNumber = ?"
+    pool.query(query, [ req.params.ordererAddress ], (error, results) => {
+      if (error) throw error;
+      if (!results[0]) {
+        res.json({ status: "Not Found"});
+      } else {
+        res.json(results[0]);
+      }
+    })
+  });
+
+// Creates a limit order 
+app.post('/createOrder', async (req, res) => {
 	const data = {
     contractAddress: req.body.contractAddress,
     ordererAddress: req.body.ordererAddress,
@@ -30,10 +59,11 @@ app.post('/setOrder', async (req, res) => {
   })
 });
 
-app.route('/contractAddress/:contractAddress')
+// Deletes limit order with associated orderNumber
+app.route('/getOrdererOrders/:orderNumber')
   .get(function(req, res, next) {
-    const query = "SELECT * FROM limitOrders WHERE contractAddress = ?"
-    pool.query(query, [ req.params.contractAddress ], (error, results) => {
+    const query = "DELETE * FROM limitOrders WHERE orderNumber = ?"
+    pool.query(query, [ req.params.orderNumber ], (error, results) => {
       if (error) throw error;
       if (!results[0]) {
         res.json({ status: "Not Found"});
@@ -43,9 +73,7 @@ app.route('/contractAddress/:contractAddress')
     })
   });
 
-
-
-app.get('/status', (req, res) => res.send("Working"));
+app.get('/health', (req, res) => res.send("Healthy"));
 
 app.listen(port, () => {
   console.log(`Listening at http://localhost:${port}`)
